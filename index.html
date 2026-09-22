@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Financial Freedom Dashboard</title>
+<link rel="icon" href="data:,">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="page-header">
+    <h1>Financial Freedom Dashboard</h1>
+    <p class="subtitle">See when your mortgage is paid off and what your pension could give you, at different retirement ages. All figures stay in your browser &mdash; nothing is sent anywhere.</p>
+  </header>
+
+  <section class="card inputs-card" aria-labelledby="inputs-heading">
+    <h2 id="inputs-heading">Your figures</h2>
+    <form id="inputs-form" class="inputs-grid">
+
+      <fieldset class="input-group">
+        <legend>Pension</legend>
+        <label class="field">
+          <span>Current age</span>
+          <input type="number" id="currentAge" min="18" max="80" step="1" value="45" inputmode="numeric">
+        </label>
+        <label class="field">
+          <span>Current pension value (&pound;)</span>
+          <input type="number" id="pensionValue" min="0" step="100" value="120000" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span>Monthly pension contribution (&pound;)</span>
+          <input type="number" id="pensionContribution" min="0" step="10" value="500" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span>Assumed annual growth (%)</span>
+          <input type="number" id="growthRate" min="-10" max="20" step="0.1" value="5" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span>Safe withdrawal rate (%)</span>
+          <input type="number" id="withdrawalRate" min="1" max="10" step="0.1" value="4" inputmode="decimal">
+        </label>
+      </fieldset>
+
+      <fieldset class="input-group">
+        <legend>Mortgage</legend>
+        <label class="field">
+          <span>Balance remaining (&pound;)</span>
+          <input type="number" id="mortgageBalance" min="0" step="100" value="180000" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span>Monthly repayment (&pound;)</span>
+          <input type="number" id="mortgagePayment" min="0" step="10" value="950" inputmode="decimal">
+        </label>
+        <label class="field">
+          <span>Interest rate (%)</span>
+          <input type="number" id="mortgageRate" min="0" max="20" step="0.1" value="4.5" inputmode="decimal">
+        </label>
+      </fieldset>
+
+    </form>
+  </section>
+
+  <section class="card age-select-card" aria-labelledby="age-heading">
+    <h2 id="age-heading">Take a look at a retirement age</h2>
+    <label class="field age-field">
+      <span>Pension access age</span>
+      <select id="targetAge"></select>
+    </label>
+  </section>
+
+  <section class="kpi-row" id="kpiRow" aria-label="Key figures at selected age"></section>
+
+  <section class="card" id="warningsCard" hidden>
+    <p class="warning-text" id="warningsText"></p>
+  </section>
+
+  <section class="charts-grid">
+    <figure class="card chart-card" id="pensionChartFigure">
+      <figcaption>
+        <h2>Projected pension pot by access age</h2>
+        <button type="button" class="table-toggle" data-target="pensionTable">Table view</button>
+      </figcaption>
+      <div class="chart-wrap" id="pensionChartWrap"></div>
+      <div class="table-wrap" id="pensionTable" hidden></div>
+    </figure>
+
+    <figure class="card chart-card" id="mortgageChartFigure">
+      <figcaption>
+        <h2>Mortgage balance over time</h2>
+        <button type="button" class="table-toggle" data-target="mortgageTable">Table view</button>
+      </figcaption>
+      <div class="chart-wrap" id="mortgageChartWrap"></div>
+      <div class="table-wrap" id="mortgageTable" hidden></div>
+    </figure>
+  </section>
+
+  <section class="card" aria-labelledby="breakdown-heading">
+    <h2 id="breakdown-heading">Pension income by access age</h2>
+    <div class="table-scroll">
+      <table class="breakdown-table" id="breakdownTable">
+        <thead>
+          <tr>
+            <th scope="col">Age</th>
+            <th scope="col">Years from now</th>
+            <th scope="col">Projected pot</th>
+            <th scope="col">Sustainable annual income</th>
+            <th scope="col">Sustainable monthly income</th>
+          </tr>
+        </thead>
+        <tbody id="breakdownTableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>Projections only, not financial advice. Pension growth and mortgage interest are assumed to be constant, which real markets and rates never are.</p>
+  </footer>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
